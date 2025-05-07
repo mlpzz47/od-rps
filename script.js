@@ -1,14 +1,12 @@
 let getComputerChoice = ()=>{
     let randomNumber = Math.random() * 3;
-    let computerChoice;
     if (randomNumber >= 0 && randomNumber < 1){
-        computerChoice = "rock";
+        return "rock";
     } else if (randomNumber >= 1 && randomNumber < 2){
-        computerChoice = "paper";
+        return "paper";
     } else if (randomNumber >= 2 && randomNumber < 3){
-        computerChoice = "scissors";
+        return "scissors";
     }
-    return computerChoice;
 }
 
 let getUserChoice = ()=>{
@@ -25,11 +23,9 @@ let getUserChoice = ()=>{
     }
 }
 
-
 let playGame = ()=>{
     let userScore = 0;
     let computerScore = 0;
-    
     let playRound = (userChoice,computerChoice)=>{
         if ((userChoice == "rock" && computerChoice == "rock") || (userChoice == "paper" && computerChoice == "paper") || (userChoice == "scissors" && computerChoice == "scissors")) {
             alert("tie " + userScore + " - " + computerScore);
@@ -41,15 +37,12 @@ let playGame = ()=>{
             alert("you lost " + userScore + " - " + computerScore);
         }
     }
-    
     for (let i = 0; i < 5; i++) {
         let userChoice = getUserChoice();
         let computerChoice = getComputerChoice();
         playRound(userChoice,computerChoice);
     }
+    document.writeln("final result: " + userScore + " - " + computerScore)
 }
 
 playGame();
-
-// console.log(getComputerChoice());
-// console.log(getUserChoice());
