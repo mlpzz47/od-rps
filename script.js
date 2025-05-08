@@ -9,40 +9,59 @@ let getComputerChoice = ()=>{
     }
 }
 
-let getUserChoice = ()=>{
-    let userChoice = parseInt(prompt("1: rock, 2: paper, 3: scissors"));
-    if (userChoice === 1) {
-        return "rock";
-    } else if (userChoice === 2) {
-        return "paper";
-    } else if (userChoice === 3) {
-        return "scissors";
-    } else {
-        alert("invalid input");
-        return getUserChoice();
-    }
+let choiceBtn = document.querySelectorAll(".choice-btn"); 
+let rockBtn = document.getElementById("rock");
+let paperBtn = document.getElementById("paper");
+let scissorsBtn = document.getElementById("scissors");
+
+let getUserChoice = () => {
+    return new Promise((resolve) => {
+        choiceBtn.forEach((choice) => {
+            choice.addEventListener("click", () => {
+                let userChoice;
+                if (choice === rockBtn) {
+                    userChoice = "rock";
+                } else if (choice === paperBtn) {
+                    userChoice = "paper";
+                } else if (choice === scissorsBtn) {
+                    userChoice = "scissors";
+                }
+                resolve(userChoice);
+            })
+        })
+    })
 }
 
-let playGame = ()=>{
+let playGame = async ()=>{
     let userScore = 0;
     let computerScore = 0;
+    let result = document.querySelector(".result-container");
     let playRound = (userChoice,computerChoice)=>{
-        if ((userChoice == "rock" && computerChoice == "rock") || (userChoice == "paper" && computerChoice == "paper") || (userChoice == "scissors" && computerChoice == "scissors")) {
-            alert("tie " + userScore + " - " + computerScore);
+        if (userChoice === computerChoice) {
+            result.textContent =`Tie! ${userScore} - ${computerScore}`;
         } else if ((userChoice == "paper" && computerChoice == "rock") || (userChoice == "rock" && computerChoice == "scissors") || (userChoice == "scissors" && computerChoice == "paper")) {
             userScore++;
-            alert("you won " + userScore + " - " + computerScore);
-        } else if ((userChoice == "scissors" && computerChoice == "rock") || (userChoice == "rock" && computerChoice == "paper") || (userChoice == "paper" && computerChoice == "scissors")) {
+            result.textContent = `You won this round! ${userScore} - ${computerScore}`;
+        } else {
             computerScore++;
-            alert("you lost " + userScore + " - " + computerScore);
+            result.textContent = `You lost this round! ${userScore} - ${computerScore}`;
         }
     }
-    for (let i = 0; i < 5; i++) {
-        let userChoice = getUserChoice();
+
+    while (userScore < 5 && computerScore < 5) {
+        let userChoice = await getUserChoice();
         let computerChoice = getComputerChoice();
         playRound(userChoice,computerChoice);
     }
-    document.writeln("final result: " + userScore + " - " + computerScore)
+
+    if(userScore === 5) {
+        result.classList.add("green");
+        result.textContent = `You won! Final result: ${userScore} - ${computerScore}`;
+    } else {
+        result.classList.add("red");
+        result.textContent = `You lost! Final result: ${userScore} - ${computerScore}`;
+    }
+    
 }
 
 playGame();
