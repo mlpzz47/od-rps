@@ -1,30 +1,32 @@
-let getComputerChoice = ()=>{
-    let randomNumber = Math.random() * 3;
+const getComputerChoice = ()=>{
+    const randomNumber = Math.random() * 3;
     if (randomNumber >= 0 && randomNumber < 1){
-        return "rock";
+        return "Rock";
     } else if (randomNumber >= 1 && randomNumber < 2){
-        return "paper";
+        return "Paper";
     } else if (randomNumber >= 2 && randomNumber < 3){
-        return "scissors";
+        return "Scissors";
     }
 }
 
-let choiceBtn = document.querySelectorAll(".choice-btn"); 
-let rockBtn = document.getElementById("rock");
-let paperBtn = document.getElementById("paper");
-let scissorsBtn = document.getElementById("scissors");
+const choiceBtn = document.querySelectorAll(".choice-btn"); 
+const rockBtn = document.getElementById("rock");
+const paperBtn = document.getElementById("paper");
+const scissorsBtn = document.getElementById("scissors");
+const result = document.querySelector(".result-container");
 
-let getUserChoice = () => {
+
+const getUserChoice = () => {
     return new Promise((resolve) => {
         choiceBtn.forEach((choice) => {
             choice.addEventListener("click", () => {
                 let userChoice;
                 if (choice === rockBtn) {
-                    userChoice = "rock";
+                    userChoice = "Rock";
                 } else if (choice === paperBtn) {
-                    userChoice = "paper";
+                    userChoice = "Paper";
                 } else if (choice === scissorsBtn) {
-                    userChoice = "scissors";
+                    userChoice = "Scissors";
                 }
                 resolve(userChoice);
             })
@@ -32,19 +34,21 @@ let getUserChoice = () => {
     })
 }
 
+let userScore;
+let computerScore;
+
 let playGame = async ()=>{
-    let userScore = 0;
-    let computerScore = 0;
-    let result = document.querySelector(".result-container");
-    let playRound = (userChoice,computerChoice)=>{
+    userScore = 0;
+    computerScore = 0;
+    const playRound = (userChoice,computerChoice)=>{
         if (userChoice === computerChoice) {
             result.textContent =`Tie! ${userScore} - ${computerScore}`;
-        } else if ((userChoice == "paper" && computerChoice == "rock") || (userChoice == "rock" && computerChoice == "scissors") || (userChoice == "scissors" && computerChoice == "paper")) {
+        } else if ((userChoice == "Paper" && computerChoice == "Rock") || (userChoice == "Rock" && computerChoice == "Scissors") || (userChoice == "Scissors" && computerChoice == "Paper")) {
             userScore++;
-            result.textContent = `You won this round! ${userScore} - ${computerScore}`;
+            result.textContent = `You won this round! ${userChoice} beats ${computerChoice} --- ${userScore} - ${computerScore}`;
         } else {
             computerScore++;
-            result.textContent = `You lost this round! ${userScore} - ${computerScore}`;
+            result.textContent = `You lost this round! ${computerChoice} beats ${userChoice} --- ${userScore} - ${computerScore}`;
         }
     }
 
@@ -56,12 +60,17 @@ let playGame = async ()=>{
 
     if(userScore === 5) {
         result.classList.add("green");
-        result.textContent = `You won! Final result: ${userScore} - ${computerScore}`;
+        result.innerHTML = `You won g! Final result: ${userScore} - ${computerScore} <br><br> <button class='play-again-btn' type='button'>Play Again</button>`;
     } else {
         result.classList.add("red");
-        result.textContent = `You lost! Final result: ${userScore} - ${computerScore}`;
+        result.innerHTML = `You lost! Final result: ${userScore} - ${computerScore} <br><br> <button class='play-again-btn' type='button'>Play Again</button>`;
     }
-    
+
+    const playAgainBtn = result.querySelector('.play-again-btn');
+    playAgainBtn.addEventListener('click', ()=> {
+        playGame();
+        result.innerHTML = 'Press a button to start g 🔝🔝🔝';
+    });
 }
 
 playGame();

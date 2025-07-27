@@ -1,0 +1,138 @@
+/* Josh's Custom CSS Reset https://www.joshwcomeau.com/css/custom-css-reset/ */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        interpolate-size: allow-keywords;
+    }
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+input, button, textarea, select {
+    font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+p {
+    text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+}
+
+#root, #__next {
+    isolation: isolate;
+}
+
+
+
+
+body {
+    max-height: 100dvh;
+    background-color: #14213d;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.btn-container {
+    margin: 80px auto;
+    width: fit-content;
+    display: flex;
+    gap: 30px;
+}
+
+.choice-btn {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 200px;
+    background-color: #e5e5e5;
+    color: #000000;
+    cursor: pointer;
+    border-radius: 20px;
+    border: none;
+    transition: background-color .2s, outline-offset .2s, color .2s;
+}
+
+.choice-btn:is(:hover,:active) {
+    background-color: #fca311;
+    outline: 2px solid #fca311;
+    outline-offset: 4px;
+    color: #ffffff;
+}
+
+.rps-img {
+    height: 80px;
+    margin: 10px;
+    user-select: none;
+}
+
+.btn-name {
+    margin: 10px;
+}
+
+.result-container {
+    font-size: 1.3rem;
+    color: #e5e5e5;
+    text-align: center;
+}
+
+.play-again-btn {
+    padding: 4px 28px;
+    border-radius: 10px;
+    border: none;
+    background-color: #fca311;
+    outline: 2px solid #fca311;
+    outline-offset: 4px;
+    color: #000000;
+    cursor: pointer;
+    transition: outline-offset .4s, color .2s, outline .2s;
+}
+
+.play-again-btn:is(:hover,:active) {
+    outline-offset: -2px;
+    color: #ffffff;
+    outline: 2px solid#ffffff;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    background-color: #333;
+    color: #ededed;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+}
+
+#TOPlink {
+    color: inherit;
+    text-decoration: underline;
+}
